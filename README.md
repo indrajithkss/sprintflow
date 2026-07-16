@@ -1,100 +1,376 @@
-# SprintFlow AI - AI-Powered Task Management System
+# 🚀 SprintFlow AI
 
-SprintFlow AI is a lightweight project & task management system designed for software teams. It provides a light-mode, modern dashboard featuring a soft dual-shadow **Neumorphic design theme** for a professional and premium user experience.
+> AI-Powered Task Management System built with Angular, Node.js, Express, and MongoDB.
 
----
-
-## 🚀 Tech Stack
-
-### Frontend Client
-* **Angular 21**: Leveraging Standalone components, Zoneless change detection, and reactive Signals.
-* **Vanilla CSS**: Curated, custom soft shadow parameters (`styles.scss`).
-* **Lucide Angular Icons**: Premium, clean vector iconography.
-
-### Backend Server
-* **Node.js & Express**: Scalable REST API architecture.
-* **MongoDB & Mongoose**: Object modeling and persistent storage.
-* **JSON Web Tokens (JWT)**: Secure user session separation.
+![Angular](https://img.shields.io/badge/Angular-21-red)
+![Node](https://img.shields.io/badge/Node.js-Express-green)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green)
+![License](https://img.shields.io/badge/License-MIT-blue)
 
 ---
 
-## 📂 Project Directory Structure
+## 📖 Project Overview
+
+SprintFlow AI is a lightweight project and task management application.
+
+The application enables users to authenticate securely, manage tasks through a clean and responsive interface, and organize their workflow efficiently.
+
+
+
+---
+
+## ✨ Features
+
+### Authentication
+
+- Secure JWT Login
+- Persistent Authentication
+- Logout
+- Protected Routes
+
+### Task Management
+
+- Create Tasks
+- View Tasks
+- Update Tasks
+- Delete Tasks
+- Task Status
+- Priority Levels
+- Due Dates
+
+### Dashboard
+
+- Statistics Cards
+- Task Overview
+- Search
+- Responsive Layout
+- Modern Neumorphic UI
+
+### Responsive Design
+
+- Desktop
+- Tablet
+- Mobile
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+
+- Angular 21
+- TypeScript
+- Tailwind CSS
+- SCSS
+- Lucide Angular Icons
+- Angular Signals
+- Angular Router
+
+### Backend
+
+- Node.js
+- Express.js
+- JWT Authentication
+- Mongoose
+- bcryptjs
+
+### Database
+
+- MongoDB Atlas
+
+### Deployment
+
+- Frontend: Vercel
+- Backend: Render
+
+---
+
+# 📂 Project Structure
 
 ```
 SprintFlow-AI/
-├── client/                     # Angular 21 Frontend Client
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── core/           # Guards, interceptors, and data services
-│   │   │   ├── features/       # Pages (Dashboard layout, Login portal, Settings form)
-│   │   │   ├── layout/         # Base layout wrappers (Navbar, Sidebar)
-│   │   │   └── shared/         # Reusable widgets (Badge, Button, Loader, Modal)
-│   │   ├── index.html          # Shell layout & Google Font preconnects
-│   │   └── styles.scss         # Global neumorphic variables & custom styling tokens
-│   └── angular.json            # Client build configurations
+
+├── client/
 │
-└── server/                     # Node.js / Express REST API Backend
-    ├── config/                 # MongoDB database connections
-    ├── controllers/            # Authentication & Task CRUD logic controllers
-    ├── middleware/             # Route-level JWT verification handlers
-    ├── models/                 # Database schema models (User, Task)
-    ├── routes/                 # Express Router endpoint definitions
-    ├── utils/                  # Helper utilities (Token generators)
-    ├── seed.js                 # Initial database seeding script
-    └── server.js               # Main Express app initialization
+│   ├── src/
+│   │
+│   ├── app/
+│   │
+│   ├── core/
+│   │
+│   ├── features/
+│   │
+│   ├── shared/
+│   │
+│   └── assets/
+│
+├── server/
+│
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   └── utils/
+│
+└── README.md
 ```
 
 ---
 
-## 🛠️ Installation & Setup
+# 🏗 Architecture
 
-### Prerequisites
-* [Node.js](https://nodejs.org/) (v18+)
-* [MongoDB](https://www.mongodb.com/) (running locally on port `27017` or using a cloud URI)
-
-### 1. Backend Server Setup
-1. Navigate to the server folder:
-   ```bash
-   cd server
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Configure environment variables in a `.env` file:
-   ```env
-   PORT=5000
-   MONGO_URI=mongodb://localhost:27017/sprintflow
-   JWT_SECRET=supersecretjwtkey12345
-   ```
-4. Seed default admin accounts (Optional):
-   ```bash
-   node seed.js
-   ```
-5. Launch development server:
-   ```bash
-   npm run dev
-   ```
-
-### 2. Frontend Client Setup
-1. Navigate to the client folder:
-   ```bash
-   cd ../client
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Launch development server:
-   ```bash
-   npm start
-   ```
-4. Access the web app at `http://localhost:4200` in your browser.
+```
+Angular Frontend
+        │
+        │ REST API
+        ▼
+Node.js + Express
+        │
+        ▼
+MongoDB Atlas
+```
 
 ---
 
-## 🌟 Key Features
+# 🔐 Authentication Flow
 
-1. **Private Dashboard Sandbox**: Multi-user accounts are supported with secure JWT session tracking. Each logged-in user can only read, create, edit, or delete their own data in MongoDB.
-2. **Auto-Registration**: Entering any email and password on the login screen automatically registers you in the database if the user record does not exist.
-3. **Reactive UI State Management**: Settings profile changes (name/email) propagate reactively across all header welcome greetings and avatars instantly without page reloads.
+```
+User Login
+
+↓
+
+JWT Token Generated
+
+↓
+
+Stored in Local Storage
+
+↓
+
+Protected API Requests
+
+↓
+
+Authentication Middleware
+
+↓
+
+Access Granted
+```
+
+---
+
+# 📦 Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/SprintFlow-AI.git
+```
+
+---
+
+## Backend
+
+```bash
+cd server
+
+npm install
+
+npm run dev
+```
+
+---
+
+## Frontend
+
+```bash
+cd client
+
+npm install
+
+ng serve
+```
+
+---
+
+## Environment Variables
+
+Create a `.env` file inside the server folder.
+
+```env
+PORT=5000
+
+MONGO_URI=YOUR_MONGODB_URI
+
+JWT_SECRET=YOUR_SECRET_KEY
+```
+
+---
+
+# 🚀 Deployment
+
+## Frontend
+
+Vercel
+
+## Backend
+
+Render
+
+## Database
+
+MongoDB Atlas
+
+---
+
+# 🌐 Live Demo
+
+https://sprintflow-one.vercel.app
+
+
+# 📡 API Endpoints
+
+## Authentication
+
+POST
+
+```
+/api/auth/login
+```
+
+PUT
+
+```
+/api/auth/profile
+```
+
+---
+
+## Tasks
+
+GET
+
+```
+/api/tasks
+```
+
+POST
+
+```
+/api/tasks
+```
+
+PUT
+
+```
+/api/tasks/:id
+```
+
+DELETE
+
+```
+/api/tasks/:id
+```
+
+---
+
+# 🤖 AI Usage
+
+This project was developed using AI-assisted software engineering practices.
+
+AI was used to support:
+
+- UI planning
+- Component architecture
+- API design discussions
+- Debugging
+- Code reviews
+- Refactoring
+- Documentation generation
+
+All generated code was reviewed, understood, modified, tested, and integrated manually before inclusion in the project.
+
+
+---
+## 🤖 AI Tools Used
+
+The following AI tools were used during the development process:
+
+- ChatGPT – architecture planning, debugging, documentation, code reviews, deployment guidance, and engineering discussions.
+- Google Stitch - used for designing ui  as per my idea
+- Antigravity  – component scaffolding, repetitive code generation, and frontend refinement, code development.
+
+## Challenges  Faced
+- Database integration
+- Refining ui's
+- API testing and correction
+- Authentication settings
+# 🎯 Engineering Decisions
+
+Some key engineering decisions include:
+
+- Angular Standalone Components
+- JWT-based Authentication
+- Modular Backend Architecture
+- RESTful API Design
+- Reusable UI Components
+- Responsive Dashboard
+- Centralized API Configuration
+- MongoDB Atlas Cloud Database
+- Separate Frontend and Backend Deployments
+
+---
+
+# 🔮 Future Improvements
+
+- AI-powered task suggestions
+- AI priority estimation
+- Kanban board
+- Team collaboration
+- Role-based permissions
+- File attachments
+- Activity history
+- Email notifications
+
+---
+
+# 📸 Screenshots
+
+## Login
+
+<img width="1914" height="903" alt="Screenshot 2026-07-16 234632" src="https://github.com/user-attachments/assets/eb97b449-39d8-4898-9888-23b2685fb1a4" />
+
+
+## Dashboard
+
+<img width="1914" height="907" alt="Screenshot 2026-07-16 234743" src="https://github.com/user-attachments/assets/733d4090-1af3-48d3-af2a-36073598e558" />
+
+
+## Task Management
+
+<img width="1918" height="907" alt="Screenshot 2026-07-16 234752" src="https://github.com/user-attachments/assets/389beae4-d039-47f5-92cd-69055dd3e1f7" />
+
+## New Task 
+
+<img width="1916" height="905" alt="Screenshot 2026-07-16 234832" src="https://github.com/user-attachments/assets/178926cd-afb4-4cfd-be05-65461b6a7cec" />
+
+
+
+---
+
+# 👨‍💻 Author
+
+**Indrajith KS**
+
+GitHub
+
+https://github.com/indrajithkss
+
+LinkedIn
+
+https://www.linkedin.com/in/indrajith-ks-40aa62227/
+---
+
