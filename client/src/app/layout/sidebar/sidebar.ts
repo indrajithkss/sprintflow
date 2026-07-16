@@ -26,7 +26,7 @@ import { LucideAngularModule } from 'lucide-angular';
             <lucide-icon name="sparkles" size="18"></lucide-icon>
           </div>
           <div>
-            <h1 class="font-extrabold text-lg text-[#000000] leading-none">SprintFlow AI</h1>
+            <h1 class="font-extrabold text-lg text-[#000000] leading-none">SprintFlow</h1>
             <span class="text-[9px] font-bold text-[#64748B] uppercase tracking-widest mt-1 block">Project Hub</span>
           </div>
         </div>
