@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
@@ -20,21 +19,11 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Database connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/sprintflow';
-mongoose
-  .connect(MONGODB_URI)
-  .then(() => {
-    console.log('Connected to MongoDB successfully');
-    // Start server after successful DB connection (or customize as needed)
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error('Database connection error:', err);
-    // Fallback: start server even if DB connection fails, or exit
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT} (Database connection failed)`);
-    });
-  });
+// Connect to Database
+const connectDB = require('./config/db');
+connectDB();
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
