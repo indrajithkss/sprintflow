@@ -23,7 +23,7 @@ export class AuthService {
   private readonly AUTH_KEY = 'sprintflow_auth_state';
   private readonly TOKEN_KEY = 'sprintflow_token';
   private readonly USER_KEY = 'sprintflow_user';
-  private readonly API_URL = API_URL + '/auth';
+  private readonly API_URL = API_URL;
   
   // Signal to hold auth state
   private readonly _isAuthenticated = signal<boolean>(this.checkInitialAuth());
@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   public login(email: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}/login`, { email, password }).pipe(
+    return this.http.post<AuthResponse>(`${this.API_URL}/auth/login`, { email, password }).pipe(
       tap(response => {
         if (response.success && response.token) {
           this._isAuthenticated.set(true);
@@ -79,7 +79,7 @@ export class AuthService {
   }
 
   public updateUser(name: string, email: string): Observable<any> {
-    return this.http.put<any>(`${this.API_URL}/profile`, { name, email }).pipe(
+    return this.http.put<any>(`${this.API_URL}/auth/profile`, { name, email }).pipe(
       tap(response => {
         if (response.success && response.user) {
           this._currentUser.set(response.user);
