@@ -1,6 +1,7 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { API_URL } from '../constants/api';
 
 export interface AuthResponse {
   success: boolean;
@@ -22,7 +23,7 @@ export class AuthService {
   private readonly AUTH_KEY = 'sprintflow_auth_state';
   private readonly TOKEN_KEY = 'sprintflow_token';
   private readonly USER_KEY = 'sprintflow_user';
-  private readonly API_URL = 'http://localhost:5000/api/auth';
+  private readonly API_URL = API_URL + '/auth';
   
   // Signal to hold auth state
   private readonly _isAuthenticated = signal<boolean>(this.checkInitialAuth());

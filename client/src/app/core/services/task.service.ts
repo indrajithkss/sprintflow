@@ -1,5 +1,6 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { API_URL } from '../constants/api';
 
 export interface Task {
   id: string;
@@ -15,7 +16,7 @@ export interface Task {
 })
 export class TaskService {
   private readonly http = inject(HttpClient);
-  private readonly API_URL = 'http://localhost:5000/api/tasks';
+  private readonly API_URL = API_URL + '/tasks';
 
   private readonly _tasks = signal<Task[]>([]);
 

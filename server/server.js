@@ -31,6 +31,18 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+// Serve static assets in production if built client exists
+const path = require("path");
+const fs = require("fs");
+const clientBuildPath = path.join(__dirname, "../client/dist/client/browser");
+if (fs.existsSync(clientBuildPath)) {
+  app.use(express.static(clientBuildPath));
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api")) return next();
+    res.sendFile(path.join(clientBuildPath, "index.html"));
+  });
+}
+
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);
 });
