@@ -1,0 +1,62 @@
+<div class="min-h-screen w-full flex items-center justify-center bg-[#EEF2F7] px-4 py-12">
+  <div class="neu-card w-full max-w-md p-10 flex flex-col items-center">
+    
+    <!-- Logo & Branding -->
+    <div class="flex flex-col items-center mb-10">
+      <div class="w-16 h-16 rounded-[20px] bg-[#EEF2F7] flex items-center justify-center shadow-soft mb-4">
+        <!-- Custom Soft Neumorphism Sparkles Logo icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" width="64" height="64" class="w-8 h-8 text-[#4F46E5]">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 21L7.188 15.904 2 15L7.188 13.096 9 8L9.813 13.096 15 14L9.813 15.904ZM19.071 8.071 18.5 11.5L17.429 8.071 14 7.5L17.429 6.929 18.5 3.5L19.071 6.929 22.5 7.5L19.071 8.071Z" />
+        </svg>
+      </div>
+      <h1 class="text-3xl font-extrabold text-[#1F2937] tracking-tight">SprintFlow AI</h1>
+      <p class="text-xs font-semibold uppercase tracking-wider text-[#64748B] mt-2">AI Powered Task Management</p>
+    </div>
+
+    <!-- Login Form -->
+    <form (submit)="onSubmit($event)" class="w-full space-y-6">
+      
+      <!-- Email Field -->
+      <div>
+        <app-input 
+          label="Email Address"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="username@gmail.com"
+        ></app-input>
+      </div>
+
+      <!-- Password Field -->
+      <div>
+        <app-input 
+          label="Password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="••••••••"
+        ></app-input>
+      </div>
+
+    
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="text-xs text-[#EF4444] font-semibold text-center mt-2 animate-fade-in bg-[#ef444414] py-2 px-3 rounded-xl border border-[#EF4444]/15">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Action Button -->
+      <button 
+        app-button
+        type="submit" 
+        variant="primary"
+        customClass="w-full py-3.5 mt-4"
+      >
+        Sign In
+      </button>
+
+    </form>
+
+    <!-- Footer -->
+      </div>
+</div>

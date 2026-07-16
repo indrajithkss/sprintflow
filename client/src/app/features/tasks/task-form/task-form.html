@@ -1,0 +1,83 @@
+<app-modal [title]="task ? 'Edit Task' : 'New Task'" (close)="onCancel()">
+  
+  <div class="space-y-6">
+    <!-- Title Input -->
+    <div>
+      <label class="block text-xs font-bold uppercase tracking-wider text-[#64748B] mb-2 pl-1">Task Title</label>
+      <input 
+        type="text" 
+        [(ngModel)]="title"
+        class="neu-input transition-all duration-300"
+        placeholder="e.g. Implement user login flow"
+      />
+    </div>
+
+    <!-- Description Input -->
+    <div>
+      <div class="mb-2 pl-1">
+        <label class="block text-xs font-bold uppercase tracking-wider text-[#64748B]">Description</label>
+      </div>
+      <textarea 
+        rows="4"
+        [(ngModel)]="description"
+        class="neu-input resize-none transition-all duration-300" 
+        placeholder="What needs to be done?"
+      ></textarea>
+    </div>
+
+    <!-- Select Boxes: Priority & Status -->
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-[#64748B] mb-2 pl-1">Priority</label>
+        <select [(ngModel)]="priority" class="neu-select">
+          <option value="Low">Low</option>
+          <option value="Medium">Medium</option>
+          <option value="High">High</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-[#64748B] mb-2 pl-1">Status</label>
+        <select [(ngModel)]="status" class="neu-select">
+          <option value="Todo">Todo</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Due Date -->
+    <div>
+      <label class="block text-xs font-bold uppercase tracking-wider text-[#64748B] mb-2 pl-1">Due Date</label>
+      <input 
+        type="date" 
+        [(ngModel)]="dueDate"
+        class="neu-input" 
+      />
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="mt-8 flex justify-end items-center gap-3 border-t border-white/30 pt-6">
+    <div class="flex items-center gap-3">
+      <button 
+        app-button
+        (click)="onCancel()"
+        variant="secondary"
+        customClass="py-2.5 px-5"
+      >
+        Cancel
+      </button>
+      <button 
+        app-button
+        (click)="onSave()"
+        [disabled]="!title.trim()"
+        variant="primary"
+        customClass="py-2.5 px-5"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+
+</app-modal>

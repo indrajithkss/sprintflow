@@ -1,0 +1,25 @@
+<div class="min-h-screen w-full flex items-center justify-center bg-[#EEF2F7] px-4">
+  <div class="neu-card w-full max-w-md p-10 flex flex-col items-center justify-center text-center">
+    
+    <!-- Neumorphic Illustration container -->
+    <div class="w-24 h-24 rounded-full bg-[#EEF2F7] flex items-center justify-center shadow-soft mb-8 text-[#EF4444]">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-12 h-12">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+      </svg>
+    </div>
+
+    <!-- Error Codes -->
+    <span class="text-xs font-bold text-[#4F46E5] uppercase tracking-widest bg-[#4f46e514] px-3 py-1.5 rounded-full mb-3 shadow-soft-inset">Error 404</span>
+    
+    <h1 class="text-3xl font-extrabold text-[#1F2937] tracking-tight">Page Not Found</h1>
+    <p class="text-sm text-[#64748B] mt-3 mb-8 px-4 leading-relaxed">The page you are looking for doesn't exist, has been moved, or is temporarily unavailable.</p>
+
+    <!-- Back button -->
+    <button 
+      (click)="backToDashboard()"
+      class="neu-button-primary w-full py-3.5 font-bold text-sm tracking-wide transition-all duration-150 active:scale-95 shadow-soft"
+    >
+      Back to Dashboard
+    </button>
+  </div>
+</div>

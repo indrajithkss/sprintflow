@@ -1,0 +1,56 @@
+<div class="neu-card neu-card-hover p-6 flex flex-col justify-between min-h-[220px]">
+  <!-- Task Header -->
+  <div>
+    <div class="flex items-start justify-between gap-2 mb-3">
+      <h3 class="font-bold text-lg text-[#1F2937] leading-snug line-clamp-1" [title]="task.title">
+        {{ task.title }}
+      </h3>
+      
+      <!-- Priority Badge -->
+      <app-badge [text]="task.priority" [type]="task.priority.toLowerCase()"></app-badge>
+    </div>
+    
+    <p class="text-sm text-[#4B5563] leading-relaxed mb-4 line-clamp-3">
+      {{ task.description }}
+    </p>
+  </div>
+
+  <!-- Task Footer -->
+  <div>
+    <div class="flex items-center justify-between border-t border-white/30 pt-4 mb-4">
+      <!-- Status Badge -->
+      <app-badge [text]="task.status" [type]="task.status === 'In Progress' ? 'in-progress' : task.status.toLowerCase()"></app-badge>
+
+      <!-- Due Date -->
+      <span class="text-xs text-[#9CA3AF] flex items-center gap-1.5 font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+        </svg>
+        {{ task.dueDate | date:'MMM d, y' }}
+      </span>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex items-center justify-end">
+      <!-- Edit & Delete buttons -->
+      <div class="flex items-center gap-2">
+        <button 
+          app-button
+          (click)="onEdit($event)"
+          variant="secondary"
+          customClass="p-2 flex items-center justify-center text-[#4B5563] hover:text-[#1F2937]"
+        >
+          <lucide-icon name="square-pen" size="14"></lucide-icon>
+        </button>
+        <button 
+          app-button
+          (click)="onDelete($event)"
+          variant="secondary"
+          customClass="p-2 flex items-center justify-center text-[#EF4444] hover:bg-[#FEE2E2]"
+        >
+          <lucide-icon name="trash2" size="14"></lucide-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

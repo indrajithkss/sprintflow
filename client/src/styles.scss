@@ -1,1 +1,348 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+/* ---------- Global Theme & Colors ---------- */
+:root {
+  --bg: #edeef3;             /* Soft Lavender Background */
+  --surface: #EEF2FF;        /* Light Neumorphic Card Surface */
+  --text: #1F1D36;           /* Deep Slate Purple Text */
+  --text-light: #5C5980;     /* Muted Slate Purple */
+  --text-muted: #8E8CAF;     /* Lighter Slate Purple */
+  
+  --primary: #5E5BE6;        /* Slate Indigo/Blue Accent */
+  --primary-light: #8E8DFF;  /* Light Indigo */
+  --primary-dark: #3F3C9E;   /* Dark Indigo */
+  
+  --sidebar-bg: #1F1D36;     /* Deep Slate Purple Sidebar */
+  --sidebar-text: #9F9EBF;   /* Muted Lavender Sidebar Text */
+  
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+
+  --shadow-light: #ffffff;
+  --shadow-dark: #C2C6E8;    /* Custom lavender-purple shadow */
+  
+  --radius-neu: 20px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================
+   GLOBAL SOFT NEUMORPHISM DESIGN SYSTEM
+   ========================================================== */
+
+/* Utility: Soft Shadows */
+.shadow-soft {
+  box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+}
+
+.shadow-soft-inset {
+  box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+}
+
+/* Neumorphic Rounded Corner */
+.rounded-neu {
+  border-radius: var(--radius-neu);
+}
+
+/* 1. Neumorphic Card */
+.neu-card {
+  background-color: var(--surface);
+  border-radius: var(--radius-neu);
+  box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.neu-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+}
+
+/* 2. Neumorphic Input */
+.neu-input {
+  background-color: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-size: 0.95rem;
+  outline: none;
+  width: 100%;
+  box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.neu-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+.neu-input:focus {
+  border-color: rgba(94, 91, 230, 0.4);
+  box-shadow: inset 2px 2px 5px var(--shadow-dark), 
+              inset -2px -2px 5px var(--shadow-light),
+              0 0 0 3px rgba(94, 91, 230, 0.15);
+}
+
+/* 3. Neumorphic Button */
+.neu-button {
+  background-color: var(--surface);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+  transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.neu-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+  background-color: rgba(94, 91, 230, 0.04);
+}
+
+.neu-button:active {
+  transform: translateY(1px);
+  box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+}
+
+/* Neumorphic Button Primary */
+.neu-button-primary {
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid rgba(94, 91, 230, 0.2);
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 4px 4px 8px rgba(94, 91, 230, 0.25), -4px -4px 8px var(--shadow-light);
+  transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+}
+
+.neu-button-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 5px 5px 12px rgba(94, 91, 230, 0.35), -5px -5px 12px var(--shadow-light);
+  filter: brightness(1.05);
+}
+
+.neu-button-primary:active {
+  transform: translateY(1px);
+  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.2), inset -3px -3px 6px rgba(255, 255, 255, 0.1);
+}
+
+/* Neumorphic AI Sparkle Button */
+.neu-button-ai {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 4px 14px rgba(94, 91, 230, 0.3), 4px 4px 8px var(--shadow-dark);
+  transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+}
+
+.neu-button-ai:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(94, 91, 230, 0.4), 5px 5px 10px var(--shadow-dark);
+  filter: brightness(1.05);
+}
+
+.neu-button-ai:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* 4. Neumorphic Badge */
+.neu-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light);
+}
+
+.neu-badge-low {
+  color: var(--success);
+  background-color: rgba(16, 185, 129, 0.08);
+}
+
+.neu-badge-medium {
+  color: var(--warning);
+  background-color: rgba(245, 158, 11, 0.08);
+}
+
+.neu-badge-high {
+  color: var(--danger);
+  background-color: rgba(239, 68, 68, 0.08);
+}
+
+/* 5. Neumorphic Modal Backdrop */
+.neu-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(31, 29, 54, 0.25);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 200ms ease-out forwards;
+}
+
+/* 6. Neumorphic Select Dropdown */
+.neu-select {
+  background-color: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 8px 12px;
+  color: var(--text);
+  font-size: 0.85rem;
+  outline: none;
+  width: 100%;
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235E5BE6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.neu-select:hover {
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+
+.neu-select:focus {
+  border-color: rgba(94, 91, 230, 0.4);
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light), 0 0 0 3px rgba(94, 91, 230, 0.15);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 200ms ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 250ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================
+   CLASS OVERRIDES FOR DYNAMIC THEME ADAPTATION
+   ========================================================== */
+
+/* Hardcoded grey-text overrides to adapt semantic colours */
+.text-\[\#1F2937\] {
+  color: var(--text) !important;
+}
+.text-\[\#4B5563\] {
+  color: var(--text-light) !important;
+}
+.text-\[\#64748B\] {
+  color: var(--text-light) !important;
+}
+.text-\[\#9CA3AF\] {
+  color: var(--text-muted) !important;
+}
+
+/* Hardcoded layout background overrides */
+.bg-\[\#EEF2F7\] {
+  background-color: var(--bg) !important;
+}
+
+/* Old violet/purple overrides mapped directly to new Indigo primary accent */
+.text-\[\#4F46E5\] {
+  color: var(--primary) !important;
+}
+.bg-\[\#4F46E5\] {
+  background-color: var(--primary) !important;
+}
+.bg-\[\#4f46e514\] {
+  background-color: rgba(94, 91, 230, 0.1) !important;
+}
+.hover\:text-\[\#3730A3\]:hover {
+  color: var(--primary-light) !important;
+}
+
+/* ==========================================================
+   SIDEBAR CUSTOM DARK SLATE-PURPLE STYLING OVERRIDES
+   ========================================================== */
+app-sidebar aside {
+  background-color: var(--sidebar-bg) !important;
+  color: var(--sidebar-text) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 10px 0 30px rgba(31, 29, 54, 0.12) !important;
+}
+
+app-sidebar aside .neu-button {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  color: var(--sidebar-text) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: none !important;
+}
+
+app-sidebar aside .neu-button:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+app-sidebar aside .neu-button-primary {
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(94, 91, 230, 0.3) !important;
+}
+
+app-sidebar aside .text-\[\#1F2937\] {
+  color: #ffffff !important;
+}
+
+app-sidebar aside .text-\[\#64748B\] {
+  color: var(--sidebar-text) !important;
+}
+
+app-sidebar aside .sidebar-logout {
+  color: #EF4444 !important;
+  background-color: rgba(239, 68, 68, 0.08) !important;
+  border: 1px solid rgba(239, 68, 68, 0.2) !important;
+}
+
+app-sidebar aside .sidebar-logout:hover {
+  background-color: rgba(239, 68, 68, 0.16) !important;
+  color: #F87171 !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}

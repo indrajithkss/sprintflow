@@ -1,0 +1,258 @@
+<div class="flex h-screen w-screen overflow-hidden bg-[#EEF2F7]">
+  
+  <!-- Sidebar Navigation Panel -->
+  <app-sidebar 
+    [currentTab]="currentTab()" 
+    [isOpen]="mobileSidebarOpen()" 
+    (tabChange)="currentTab.set($event)" 
+    (logout)="logout()" 
+    (toggle)="mobileSidebarOpen.set(!mobileSidebarOpen())"
+  ></app-sidebar>
+
+  <!-- Main Viewport Context -->
+  <div class="flex flex-col flex-1 h-screen overflow-hidden">
+    <!-- Top Navbar header -->
+    <app-navbar 
+      (logout)="logout()" 
+      (menuToggle)="mobileSidebarOpen.set(!mobileSidebarOpen())"
+    ></app-navbar>
+
+    <!-- Content Workspace -->
+    <main class="flex-1 overflow-y-auto p-6 md:p-8">
+      
+      <!-- TAB 1: DASHBOARD PORTAL -->
+      <div *ngIf="currentTab() === 'dashboard'" class="space-y-8 animate-fade-in">
+        
+        <!-- Welcome Greeting & Title -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-3xl font-extrabold text-[#1F2937] tracking-tight">Welcome Back, <span class="capitalize">{{ currentUser()?.name || 'User' }}</span></h2>
+          </div>
+        </div>
+
+        <!-- Two-Column Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          
+          <!-- Left: Recent Tasks (2/3 width) -->
+          <div class="lg:col-span-2 space-y-6">
+            <div class="flex items-center justify-between border-b border-white/30 pb-3">
+              <h3 class="font-bold text-lg text-[#1F2937]">Recent Tasks</h3>
+              <button 
+                (click)="currentTab.set('tasks')" 
+                class="text-xs text-[#4F46E5] hover:underline font-extrabold uppercase tracking-wider"
+              >
+                View All
+              </button>
+            </div>
+
+            <!-- Tasks list (2 columns) -->
+            <div *ngIf="taskService.tasks().length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <app-task-card 
+                *ngFor="let task of taskService.tasks().slice(0, 4)"
+                [task]="task"
+                (edit)="openEditModal(task)"
+                (delete)="confirmDeleteTask(task.id)"
+              ></app-task-card>
+            </div>
+
+            <!-- Empty state -->
+            <div *ngIf="taskService.tasks().length === 0" class="py-6">
+              <app-empty-state (action)="openCreateModal()"></app-empty-state>
+            </div>
+          </div>
+
+          <!-- Right: Project Summary (1/3 width) -->
+          <div class="lg:col-span-1 space-y-6">
+            <div class="border-b border-white/30 pb-3">
+              <h3 class="font-bold text-lg text-[#1F2937]">Project Summary</h3>
+            </div>
+
+            <!-- Vertical Stat stack -->
+            <div class="space-y-4">
+              <!-- Stat item: Total Tasks -->
+              <div class="neu-card p-5 flex items-center gap-4 transition-all duration-200">
+                <div class="w-12 h-12 rounded-xl bg-[#EEF2F7] shadow-soft-inset flex items-center justify-center text-[#4F46E5] shrink-0">
+                  <lucide-icon name="clipboard-list" size="20"></lucide-icon>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Total Tasks</span>
+                  <span class="text-2xl font-extrabold text-[#1F2937] leading-none mt-1">{{ totalTasks() }}</span>
+                </div>
+              </div>
+
+              <!-- Stat item: Todo -->
+              <div class="neu-card p-5 flex items-center gap-4 transition-all duration-200">
+                <div class="w-12 h-12 rounded-xl bg-[#EEF2F7] shadow-soft-inset flex items-center justify-center text-[#3B82F6] shrink-0">
+                  <lucide-icon name="clock" size="20"></lucide-icon>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Todo</span>
+                  <span class="text-2xl font-extrabold text-[#1F2937] leading-none mt-1">{{ pendingTasks() }}</span>
+                </div>
+              </div>
+
+              <!-- Stat item: In Progress -->
+              <div class="neu-card p-5 flex items-center gap-4 transition-all duration-200">
+                <div class="w-12 h-12 rounded-xl bg-[#EEF2F7] shadow-soft-inset flex items-center justify-center text-[#F59E0B] shrink-0">
+                  <lucide-icon name="trending-up" size="20"></lucide-icon>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">In Progress</span>
+                  <span class="text-2xl font-extrabold text-[#1F2937] leading-none mt-1">{{ inProgressTasks() }}</span>
+                </div>
+              </div>
+
+              <!-- Stat item: Completed -->
+              <div class="neu-card p-5 flex items-center gap-4 transition-all duration-200">
+                <div class="w-12 h-12 rounded-xl bg-[#EEF2F7] shadow-soft-inset flex items-center justify-center text-[#10B981] shrink-0">
+                  <lucide-icon name="check-circle" size="20"></lucide-icon>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">Completed</span>
+                  <span class="text-2xl font-extrabold text-[#1F2937] leading-none mt-1">{{ completedTasks() }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- TAB 2: TASKS HUB -->
+      <div *ngIf="currentTab() === 'tasks'" class="space-y-8 animate-fade-in">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-bold text-[#1F2937]">Tasks List</h2>
+            <p class="text-sm text-[#64748B] mt-0.5">Manage tasks, statuses, priorities, and optimize descriptions with Sparkles AI.</p>
+          </div>
+          <button 
+            (click)="openCreateModal()"
+            class="neu-button-primary py-2.5 px-5 flex items-center justify-center gap-2 text-sm self-start md:self-auto"
+          >
+            <lucide-icon name="plus" size="14"></lucide-icon>
+            <span>Add Task</span>
+          </button>
+        </div>
+
+        <!-- Toolbars & Filtering -->
+        <div class="neu-card p-5 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          
+          <!-- Filters (Left) -->
+          <div class="flex flex-wrap items-center gap-4">
+            <!-- Status Dropdown -->
+            <div class="flex flex-col gap-1 min-w-[130px]">
+              <span class="text-[9px] font-bold uppercase tracking-wider text-[#64748B] pl-1">Status</span>
+              <select 
+                [ngModel]="statusFilter()" 
+                (ngModelChange)="statusFilter.set($event)"
+                class="neu-select py-2 pl-3 pr-8 text-xs font-semibold text-[#1F2937]"
+              >
+                <option value="All">All Statuses</option>
+                <option value="Todo">Todo</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+
+            <!-- Priority Dropdown -->
+            <div class="flex flex-col gap-1 min-w-[130px]">
+              <span class="text-[9px] font-bold uppercase tracking-wider text-[#64748B] pl-1">Priority</span>
+              <select 
+                [ngModel]="priorityFilter()" 
+                (ngModelChange)="priorityFilter.set($event)"
+                class="neu-select py-2 pl-3 pr-8 text-xs font-semibold text-[#1F2937]"
+              >
+                <option value="All">All Priorities</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Sorting (Right) -->
+          <div class="flex flex-col gap-1 min-w-[135px]">
+            <span class="text-[9px] font-bold uppercase tracking-wider text-[#64748B] pl-1">Sort By</span>
+            <select 
+              [ngModel]="sorting()" 
+              (ngModelChange)="sorting.set($event)"
+              class="neu-select py-2 pl-3 pr-8 text-xs font-semibold text-[#1F2937]"
+            >
+              <option value="Newest">Newest First</option>
+              <option value="Title">Title (A-Z)</option>
+              <option value="Priority">Priority (High-Low)</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Skeleton loaders -->
+        <app-loader *ngIf="taskService.loading()" type="skeleton" [loading]="true"></app-loader>
+
+        <!-- Tasks Grid -->
+        <div *ngIf="!taskService.loading() && filteredTasks().length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <app-task-card 
+            *ngFor="let task of filteredTasks()"
+            [task]="task"
+            (edit)="openEditModal(task)"
+            (delete)="confirmDeleteTask(task.id)"
+          ></app-task-card>
+        </div>
+
+        <!-- Empty state layout -->
+        <app-empty-state 
+          *ngIf="!taskService.loading() && filteredTasks().length === 0"
+          (action)="openCreateModal()"
+        ></app-empty-state>
+
+      </div>
+
+      <!-- TAB 4: SETTINGS -->
+      <app-settings *ngIf="currentTab() === 'settings'"></app-settings>
+
+    </main>
+  </div>
+</div>
+
+<!-- Task Form Modal overlay (Create/Edit) -->
+<app-task-form 
+  *ngIf="showModal()" 
+  [task]="selectedTask()" 
+  (close)="showModal.set(false)"
+></app-task-form>
+
+<!-- Warning Delete Confirmation Modal popup -->
+<app-modal *ngIf="showDeleteConfirmModal()" title="Confirm Delete" (close)="showDeleteConfirmModal.set(false)">
+  <div class="flex flex-col items-center justify-center text-center p-4">
+    <!-- Warning Icon -->
+    <div class="w-16 h-16 rounded-full bg-[#FEE2E2] flex items-center justify-center text-[#EF4444] mb-6 shadow-soft-inset">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+    </div>
+    <h3 class="text-xl font-bold text-[#1F2937] mb-2">Are you sure?</h3>
+    <p class="text-sm text-[#64748B] mb-8 leading-relaxed max-w-sm">This action is permanent and cannot be undone. All files and metrics associated with this task will be removed.</p>
+    
+    <div class="flex items-center gap-3 w-full justify-center">
+      <button 
+        app-button
+        (click)="showDeleteConfirmModal.set(false)" 
+        variant="secondary"
+        customClass="py-2.5 px-6"
+      >
+        Cancel
+      </button>
+      <button 
+        app-button
+        (click)="executeDeleteTask()" 
+        variant="primary"
+        customClass="py-2.5 px-6 !bg-[#EF4444] !border-[#EF4444]/20 hover:!bg-[#DC2626]"
+      >
+        Delete Task
+      </button>
+    </div>
+  </div>
+</app-modal>

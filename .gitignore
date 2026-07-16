@@ -1,0 +1,23 @@
+# Dependency directories
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment configurations (Strictly Ignored)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+server/.env
+client/.env
+
+# Build outputs
+client/dist/
+client/.angular/cache/
+
+# OS & Editor configurations
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
